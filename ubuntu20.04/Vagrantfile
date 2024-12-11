@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  if ENV["VAGRANT_WSL"]
+    config.ssh.insert_key = false
+  end
+  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.hostname = "ubuntu20.04"
+  config.vm.network "private_network", ip: "192.168.56.9"
+  config.vm.provider "virtualbox" do |pmv|
+    pmv.memory = 4096
+    pmv.cpus = 2
+    pmv.name = "Ubuntu20.04"
+    pmv.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
+  end
+  ssh_pub_key_path = ENV["WZ_SSH_PUB_KEY_PATH"]
+  if ssh_pub_key_path
+    config.vm.provision "file", source: ssh_pub_key_path, destination: "~/.ssh/me.pub"
+    config.vm.provision "shell", inline: <<-SHELL
+        cat /home/vagrant/.ssh/me.pub >> /home/vagrant/.ssh/authorized_keys
+        mkdir -p /root/.ssh/
+        cat /home/vagrant/.ssh/me.pub >> /root/.ssh/authorized_keys
+      SHELL
+  end
+end

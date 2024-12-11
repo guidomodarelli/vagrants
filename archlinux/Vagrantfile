@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    if ENV["VAGRANT_WSL"]
+      config.ssh.insert_key = false
+    end
+    config.vm.box = "terrywang/archlinux"
+    config.vm.network "private_network", ip: "192.168.56.2"
+    config.vm.provider "virtualbox" do |pmv|
+      pmv.memory = 1024
+      pmv.cpus = 2
+      pmv.name = "ArchLinux"
+    end
+    ssh_pub_source = ENV["WZ_SSH_PUB_KEY_PATH"]
+    if ssh_pub_source
+      config.vm.provision "file", source: ssh_pub_source, destination: "~/.ssh/me.pub"
+      config.vm.provision "shell", inline: <<-SHELL
+          cat /home/vagrant/.ssh/me.pub >> /home/vagrant/.ssh/authorized_keys
+          mkdir -p /root/.ssh/
+          cat /home/vagrant/.ssh/me.pub >> /root/.ssh/authorized_keys
+        SHELL
+    end
+  end

@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  if ENV["VAGRANT_WSL"]
+    config.ssh.insert_key = false
+  end
+  config.vm.box = "tnarik/solaris10-minimal"
+  config.vm.box_version = "0.0.1"
+  config.vm.network "private_network", ip: "192.168.56.8"
+  config.vm.provider "virtualbox" do |pmv|
+    pmv.memory = 512
+    pmv.cpus = 1
+    pmv.name = "Solaris10"
+  end
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "KexAlgorithms diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1" >> /etc/ssh/sshd_config
+    echo "KexAlgorithms diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1" >> /var/sadm/pkg/SUNWsshdr/save/pspool/SUNWsshdr/reloc/etc/ssh/sshd_config
+  SHELL
+end

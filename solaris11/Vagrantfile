@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  if ENV["VAGRANT_WSL"]
+    config.ssh.insert_key = false
+  end
+  config.vm.box = "jonatasbaldin/solaris11"
+  config.vm.box_version = "1.0.0"
+  config.vm.network "private_network", ip: "192.168.56.18"
+  config.vm.provider "virtualbox" do |pmv|
+    pmv.memory = 512
+    pmv.cpus = 1
+    pmv.name = "Solaris11"
+  end
+end

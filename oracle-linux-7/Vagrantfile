@@ -1,0 +1,15 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  if ENV["VAGRANT_WSL"]
+    config.ssh.insert_key = false
+  end
+  config.vm.box = "elastic/oraclelinux-7-x86_64"
+  config.vm.network "private_network", ip: "192.168.56.6"
+  config.vm.provider "virtualbox" do |pmv|
+    pmv.memory = 1024
+    pmv.cpus = 2
+    pmv.name = "OracleLinux7"
+  end
+end
