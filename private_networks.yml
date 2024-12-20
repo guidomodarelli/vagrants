@@ -1,0 +1,35 @@
+networks:
+  192.168.56.2:
+    - amazon-linux2
+    - archlinux
+  192.168.56.3:
+    - freebsd12
+  192.168.56.4:
+    - centos7
+    - centos8
+    - centos-stream8
+  192.168.56.5:
+    - openbsd6
+  192.168.56.6:
+    - oracle7
+  192.168.56.7:
+    - oracle7.9
+  192.168.56.8:
+    - solaris10
+    - solaris11
+  192.168.56.9:
+    - debian11
+    - ubuntu16.04
+    - ubuntu18.04
+    - ubuntu20.04
+    - ubuntu22.04
+  192.168.56.10:
+    - rhel7
+  192.168.56.11:
+    - win10
+    - win11
+    - win7
+    - win2008-rc2-sp1
+  192.168.56.12:
+    - win-server
+    - win-server2019

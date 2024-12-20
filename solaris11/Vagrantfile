@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
   end
   config.vm.box = "jonatasbaldin/solaris11"
   config.vm.box_version = "1.0.0"
-  config.vm.network "private_network", ip: "192.168.56.18"
+  config.vm.network "private_network", ip: "192.168.56.8"
   config.vm.provider "virtualbox" do |pmv|
     pmv.memory = 512
     pmv.cpus = 1
