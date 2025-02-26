@@ -1,9 +1,10 @@
 # Vagrants
 
-The images from [roboxes.org](https://roboxes.org/) support multiple
-virtualizers, including Hyper-V. I often use their boxes because they are
-compatible with Windows, Linux, and macOS, as well as their respective
-virtualizers.
+The images from [roboxes.org](https://roboxes.org/) o [HashiCorp
+Generic](https://portal.cloud.hashicorp.com/vagrant/discover/generic) support
+multiple virtualizers, including Hyper-V. I often use their boxes because they
+are compatible with Windows, Linux, and macOS, as well as their respective
+operating systems.
 
 ## Copy from Host to Guest
 ```bash
@@ -14,6 +15,8 @@ scp <file> vagrant@192.168.56.9:/path/to/destination
 ```bash
 scp vagrant@192.168.56.9:/path/on/guest/file /path/on/host
 ```
+
+Note: Replace the IP address with your VM's actual IP address
 
 ## Helpful Commands
 
