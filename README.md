@@ -5,6 +5,16 @@ virtualizers, including Hyper-V. I often use their boxes because they are
 compatible with Windows, Linux, and macOS, as well as their respective
 virtualizers.
 
+## Copy from Host to Guest
+```bash
+scp <file> vagrant@192.168.56.9:/path/to/destination
+```
+
+## Copy from Guest to Host
+```bash
+scp vagrant@192.168.56.9:/path/on/guest/file /path/on/host
+```
+
 ## Helpful Commands
 
 ### Vagrant
