@@ -6,6 +6,7 @@ multiple virtualizers, including Hyper-V. I often use their boxes because they
 are compatible with Windows, Linux, and macOS, as well as their respective
 operating systems.
 
+
 ## Copy from Host to Guest
 ```bash
 scp <file> vagrant@192.168.56.9:/path/to/destination
@@ -24,6 +25,9 @@ Note: Replace the IP address with your VM's actual IP address
 
 - `vagrant up` This command creates and configures guest machines according to
   your Vagrantfile. [For more Info.](https://www.vagrantup.com/docs/cli/up)
+
+  ![alt text](/images/vagrant-up-powershell-hyper-v-default-switch.png)
+
 - `vagrant halt` This command shuts down the running machine Vagrant is
   managing. [For more Info.](https://www.vagrantup.com/docs/cli/halt)
 - `vagrant destroy` This command stops the running machine Vagrant is managing
