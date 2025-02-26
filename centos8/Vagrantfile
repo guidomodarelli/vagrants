@@ -12,6 +12,12 @@ Vagrant.configure("2") do |config|
     pmv.cpus = 2
     pmv.name = "Centos8"
   end
+  config.vm.provider "hyperv" do |pmv, override|
+    override.vm.box = "generic/centos8"
+    pmv.maxmemory = 4096
+    pmv.cpus = 2
+    pmv.vmname = "Centos8"
+  end
   ssh_pub_source = ENV["WZ_SSH_PUB_KEY_PATH"]
   if ssh_pub_source
     config.vm.provision "file", source: ssh_pub_source, destination: "~/.ssh/me.pub"

@@ -14,6 +14,12 @@ Vagrant.configure("2") do |config|
     pmv.name = "Ubuntu22.04"
     pmv.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   end
+  config.vm.provider "hyperv" do |pmv, override|
+    override.vm.box = "generic/ubuntu2204"
+    pmv.maxmemory = 4092
+    pmv.cpus = 2
+    pmv.vmname = "Ubuntu22.04"
+  end
   ssh_pub_key_path = ENV["WZ_SSH_PUB_KEY_PATH"]
   if ssh_pub_key_path
     config.vm.provision "file", source: ssh_pub_key_path, destination: "~/.ssh/me.pub"
