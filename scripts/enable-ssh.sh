@@ -21,7 +21,7 @@ if [[ ! -f "$SSH_CONFIG" ]]; then
   exit 1
 fi
 
-log "====== SSH Password Authentication Setup ======"
+log "====== SSH Configuration Setup ======"
 
 # Check current setting
 log "Current configuration:"
@@ -46,7 +46,9 @@ else
 fi
 
 log "Current SSH password authentication setting:"
-grep "^\s*$KEY" "$SSH_CONFIG"
+grep "^\s*$KEY" "$SSH_CONFIG" | while read -r line; do
+  log "$line"
+done
 
 log "Restarting SSH service..."
 if systemctl restart sshd; then
@@ -57,4 +59,4 @@ else
 fi
 
 log "✅ SSH password authentication is now enabled"
-log "====== Configuration complete ======"
+log "====== SSH Configuration Complete ======"

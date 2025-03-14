@@ -64,4 +64,4 @@ else
   exit 1
 fi
 
-log "====== Firewalld deactivation complete ======"
+log "====== Firewalld Deactivation Complete ======"
