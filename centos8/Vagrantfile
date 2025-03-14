@@ -28,22 +28,22 @@ Vagrant.configure("2") do |config|
       SHELL
   end
   config.vm.provision "shell", inline: <<-SHELL
-      echo
-      echo "Enabling password authentication"
-      sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-      echo
-      grep '^\s*PasswordAuthentication' /etc/ssh/sshd_config
-      echo
-      echo "Restarting sshd service"
-      systemctl restart sshd
-      echo
-      echo "Disabling firewalld"
-      systemctl stop firewalld
-      echo
-      # https://stackoverflow.com/a/71309215
-      cd /etc/yum.repos.d/
-      sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-      sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
-      sudo yum upgrade -y
-    SHELL
+    echo
+    echo "Enabling password authentication"
+    sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    echo
+    grep '^\s*PasswordAuthentication' /etc/ssh/sshd_config
+    echo
+    echo "Restarting sshd service"
+    systemctl restart sshd
+    echo
+    echo "Disabling firewalld"
+    systemctl stop firewalld
+    echo
+    # https://stackoverflow.com/a/71309215
+    cd /etc/yum.repos.d/
+    sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+    sudo yum upgrade -y
+  SHELL
 end
