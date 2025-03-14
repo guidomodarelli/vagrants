@@ -63,9 +63,7 @@ upgrade_status=$?
 if [ $upgrade_status -eq 0 ]; then
   log "YUM repositories successfully fixed and system upgraded"
 else
-  log "Warning: System upgrade completed with status: $upgrade_status"
+  log "WARNING: System upgrade completed with status: $upgrade_status"
 fi
-
-log "Script completed"
 
 log "====== CentOS YUM Repositories Fix Complete ======"
