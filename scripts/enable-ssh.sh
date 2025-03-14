@@ -3,6 +3,11 @@
 # Script to enable SSH password authentication
 # Improved version with error handling and verification
 
+# Function for logging
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
+
 # Exit on error
 set -e
 
@@ -12,44 +17,44 @@ KEY="PasswordAuthentication"
 
 # Check if SSH config file exists
 if [[ ! -f "$SSH_CONFIG" ]]; then
-  echo "Error: SSH configuration file not found at $SSH_CONFIG"
+  log "Error: SSH configuration file not found at $SSH_CONFIG"
   exit 1
 fi
 
-echo "====== SSH Password Authentication Setup ======"
+log "====== SSH Password Authentication Setup ======"
 
 # Check current setting
-echo "Current configuration:"
+log "Current configuration:"
 if grep -q "^\s*$KEY no" "$SSH_CONFIG"; then
-  echo "* Password authentication is currently disabled"
+  log "* Password authentication is currently disabled"
 
-  echo -e "\nEnabling password authentication..."
+  log "Enabling password authentication..."
   sed -i "s/^\s*$KEY no/$KEY yes/" "$SSH_CONFIG"
 
   # Verify the change
   if grep -q "^\s*$KEY yes" "$SSH_CONFIG"; then
-    echo "* Password authentication successfully enabled"
+    log "* Password authentication successfully enabled"
   else
-    echo "* Failed to enable password authentication"
+    log "* Failed to enable password authentication"
     exit 1
   fi
 elif grep -q "^\s*$KEY yes" "$SSH_CONFIG"; then
-  echo "* Password authentication is already enabled"
+  log "* Password authentication is already enabled"
 else
-  echo "* Adding password authentication setting..."
+  log "* Adding password authentication setting..."
   echo "$KEY yes" >> "$SSH_CONFIG"
 fi
 
-echo -e "\nCurrent SSH password authentication setting:"
+log "Current SSH password authentication setting:"
 grep "^\s*$KEY" "$SSH_CONFIG"
 
-echo -e "\nRestarting SSH service..."
+log "Restarting SSH service..."
 if systemctl restart sshd; then
-  echo "* SSH service restarted successfully"
+  log "* SSH service restarted successfully"
 else
-  echo "* Failed to restart SSH service"
+  log "* Failed to restart SSH service"
   exit 1
 fi
 
-echo -e "\n✅ SSH password authentication is now enabled"
-echo "====== Configuration complete ======"
+log "✅ SSH password authentication is now enabled"
+log "====== Configuration complete ======"
