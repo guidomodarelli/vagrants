@@ -5,7 +5,7 @@
 
 # Function for logging
 log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+  echo "[ENABLE-SSH] $1"
 }
 
 # Exit on error
