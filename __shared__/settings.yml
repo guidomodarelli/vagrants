@@ -1,0 +1,3 @@
+provider:
+  memory: 6144 # 4092 + 2048
+  cpus: 2

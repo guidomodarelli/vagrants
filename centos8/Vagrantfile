@@ -1,23 +1,28 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require "yaml"
+
+settings = YAML.load_file("../__shared__/settings.yml")
+vmname = "Centos8"
+
 Vagrant.configure("2") do |config|
   if ENV["VAGRANT_WSL"]
     config.ssh.insert_key = false
   end
   config.vm.box = "centos/8"
   config.vm.network "private_network", ip: "192.168.56.4"
-  config.vm.provider "virtualbox" do |pmv|
-    pmv.memory = 4096
-    pmv.cpus = 2
-    pmv.name = "Centos8"
+  config.vm.provider "virtualbox" do |virtualbox|
+    virtualbox.name = vmname
+    virtualbox.memory = settings["memory"]
+    virtualbox.cpus = settings["cpus"]
   end
-  config.vm.provider "hyperv" do |pmv, override|
+  config.vm.provider "hyperv" do |hyperv, override|
     config.vm.network "public_network", bridge: "Default Switch"
     override.vm.box = "generic/centos8"
-    pmv.maxmemory = 6144
-    pmv.cpus = 2
-    pmv.vmname = "Centos8"
+    hyperv.vmname = vmname
+    hyperv.maxmemory = settings["memory"]
+    hyperv.cpus = settings["cpus"]
   end
   ssh_pub_source = ENV["WZ_SSH_PUB_KEY_PATH"]
   if ssh_pub_source
