@@ -1,13 +1,17 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require "yaml"
+
+settings = YAML.load_file("../__shared__/settings.yml")
+
 Vagrant.configure("2") do |config|
   if ENV["VAGRANT_WSL"]
     config.ssh.insert_key = false
   end
   config.vm.box = "boxomatic/debian-11"
   config.vm.hostname = "debian11"
-  config.vm.network "private_network", ip: "192.168.56.9"
+  config.vm.network "private_network", ip: settings["private_network"]["ip"]["debian"]
   config.vm.provider "virtualbox" do |pmv|
     pmv.memory = 2048
     pmv.cpus = 2
