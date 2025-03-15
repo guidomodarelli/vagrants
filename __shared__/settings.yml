@@ -1,3 +1,7 @@
 provider:
   memory: 6144 # 4092 + 2048
   cpus: 2
+
+private_network:
+  ip:
+    centos: 192.168.56.4
