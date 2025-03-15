@@ -21,7 +21,5 @@ Vagrant.configure("2") do |config|
     override.vm.box = "generic/centos8"
     hyperv.vmname = vmname
   end
-  config.vm.provision "shell", path: "../__scripts__/enable-ssh.sh"
-  config.vm.provision "shell", path: "../__scripts__/turn-off-firewalld.sh"
   config.vm.provision "shell", path: "../__scripts__/centos/fix-yum-repos-d.sh"
 end

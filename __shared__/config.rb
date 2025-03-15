@@ -13,6 +13,9 @@ def common_config(config)
       cat #{ssh_dest_path} >> /root/${authorized_keys_partial_path}
     SHELL
   end
+
+  config.vm.provision "shell", path: "../__scripts__/enable-ssh.sh"
+  config.vm.provision "shell", path: "../__scripts__/turn-off-firewalld.sh"
 end
 
 def config_hyperv(config, hyperv, settings)
