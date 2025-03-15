@@ -18,11 +18,9 @@ Vagrant.configure("2") do |config|
     virtualbox.cpus = settings["cpus"]
   end
   config.vm.provider "hyperv" do |hyperv, override|
-    config.vm.network "public_network", bridge: "Default Switch"
+    config_hyperv(config, hyperv, settings)
     override.vm.box = "generic/centos8"
     hyperv.vmname = vmname
-    hyperv.maxmemory = settings["memory"]
-    hyperv.cpus = settings["cpus"]
   end
   config.vm.provision "shell", path: "../__scripts__/enable-ssh.sh"
   config.vm.provision "shell", path: "../__scripts__/turn-off-firewalld.sh"

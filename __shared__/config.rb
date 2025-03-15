@@ -14,3 +14,9 @@ def common_config(config)
     SHELL
   end
 end
+
+def config_hyperv(config, hyperv, settings)
+  config.vm.network "public_network", bridge: "Default Switch"
+  hyperv.maxmemory = settings["memory"]
+  hyperv.cpus = settings["cpus"]
+end
