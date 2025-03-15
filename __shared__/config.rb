@@ -20,3 +20,8 @@ def config_hyperv(config, hyperv, settings)
   hyperv.maxmemory = settings["memory"]
   hyperv.cpus = settings["cpus"]
 end
+
+def config_virtualbox(config, virtualbox, settings)
+  virtualbox.memory = settings["memory"]
+  virtualbox.cpus = settings["cpus"]
+end
