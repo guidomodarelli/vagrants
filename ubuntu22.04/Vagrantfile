@@ -1,6 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require "yaml"
+
+settings = YAML.load_file("../__shared__/settings.yml")
+vmname = "Ubuntu22.04"
+
 Vagrant.configure("2") do |config|
   if ENV["VAGRANT_WSL"]
     config.ssh.insert_key = false
@@ -9,17 +14,17 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "ubuntu-2204"
   config.vm.network "private_network", ip: "192.168.56.9"
   config.vm.provider "virtualbox" do |pmv|
-    pmv.memory = 4092
-    pmv.cpus = 2
-    pmv.name = "Ubuntu22.04"
+    pmv.name = vmname
+    pmv.memory = settings["memory"]
+    pmv.cpus = settings["cpus"]
     pmv.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   end
   config.vm.provider "hyperv" do |pmv, override|
     config.vm.network "public_network", bridge: "Default Switch"
     override.vm.box = "generic/ubuntu2204"
-    pmv.maxmemory = 4092
-    pmv.cpus = 2
-    pmv.vmname = "Ubuntu22.04"
+    pmv.vmname = vmname
+    pmv.maxmemory = settings["memory"]
+    pmv.cpus = settings["cpus"]
   end
   ssh_pub_key_path = ENV["WZ_SSH_PUB_KEY_PATH"]
   if ssh_pub_key_path
