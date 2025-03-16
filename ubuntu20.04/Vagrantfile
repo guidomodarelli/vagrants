@@ -14,8 +14,12 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: SETTINGS["private_network"]["ip"]["debian"]
   config.vm.provider "virtualbox" do |virtualbox|
     config_virtualbox(config, virtualbox)
-
     virtualbox.name = vmname
     virtualbox.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
+  end
+  config.vm.provider "hyperv" do |hyperv, override|
+    config_hyperv(config, hyperv)
+    override.vm.box = "generic/ubuntu2004"
+    hyperv.vmname = vmname
   end
 end
