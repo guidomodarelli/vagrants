@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
   common_config(config)
 
   config.vm.box = "bento/ubuntu-22.04"
-  config.vm.hostname = "ubuntu-2204"
+  config.vm.hostname = vmname.gsub(".", "").downcase
   config.vm.network "private_network", ip: SETTINGS["private_network"]["ip"]["debian"]
   config.vm.provider "virtualbox" do |virtualbox|
     config_virtualbox(config, virtualbox)
