@@ -1,23 +1,22 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require "yaml"
 require_relative "../__shared__/config"
+require_relative "../__shared__/settings"
 
-settings = YAML.load_file("../__shared__/settings.yml")
 vmname = "Centos8"
 
 Vagrant.configure("2") do |config|
   common_config(config)
 
   config.vm.box = "centos/8"
-  config.vm.network "private_network", ip: settings["private_network"]["ip"]["centos"]
+  config.vm.network "private_network", ip: SETTINGS["private_network"]["ip"]["centos"]
   config.vm.provider "virtualbox" do |virtualbox|
-    config_virtualbox(config, virtualbox, settings)
+    config_virtualbox(config, virtualbox)
     virtualbox.name = vmname
   end
   config.vm.provider "hyperv" do |hyperv, override|
-    config_hyperv(config, hyperv, settings)
+    config_hyperv(config, hyperv)
     override.vm.box = "generic/centos8"
     hyperv.vmname = vmname
   end

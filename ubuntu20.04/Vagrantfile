@@ -1,9 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require "yaml"
-
-settings = YAML.load_file("../__shared__/settings.yml")
+require_relative "../__shared__/settings"
 
 Vagrant.configure("2") do |config|
   if ENV["VAGRANT_WSL"]
@@ -11,7 +9,7 @@ Vagrant.configure("2") do |config|
   end
   config.vm.box = "bento/ubuntu-20.04"
   config.vm.hostname = "ubuntu20.04"
-  config.vm.network "private_network", ip: settings["private_network"]["ip"]["debian"]
+  config.vm.network "private_network", ip: SETTINGS["private_network"]["ip"]["debian"]
   config.vm.provider "virtualbox" do |pmv|
     pmv.memory = 4096
     pmv.cpus = 2
