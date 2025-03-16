@@ -1,3 +1,5 @@
+require_relative "./settings.rb"
+
 # Shared Vagrant configuration utilities
 # This file contains common configuration methods used across Vagrant VMs
 
@@ -30,13 +32,13 @@ def common_config(config)
   config.vm.provision "shell", path: "../__scripts__/turn-off-firewalld.sh"
 end
 
-def config_hyperv(config, hyperv, settings)
+def config_hyperv(config, hyperv)
   config.vm.network "public_network", bridge: "Default Switch"
-  hyperv.maxmemory = settings["memory"]
-  hyperv.cpus = settings["cpus"]
+  hyperv.maxmemory = SETTINGS["memory"]
+  hyperv.cpus = SETTINGS["cpus"]
 end
 
-def config_virtualbox(config, virtualbox, settings)
-  virtualbox.memory = settings["memory"]
-  virtualbox.cpus = settings["cpus"]
+def config_virtualbox(config, virtualbox)
+  virtualbox.memory = SETTINGS["memory"]
+  virtualbox.cpus = SETTINGS["cpus"]
 end
