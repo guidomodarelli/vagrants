@@ -3,7 +3,7 @@ require_relative "./settings.rb"
 # Shared Vagrant configuration utilities
 # This file contains common configuration methods used across Vagrant VMs
 
-module Common
+module CommonConfig
   # Configure common settings for all VMs
   # @param config [Vagrant::Config::V2::Root] The Vagrant config object
   # @return [void]
@@ -34,22 +34,25 @@ module Common
     config.vm.provision "shell", path: "../__scripts__/turn-off-firewalld.sh"
   end
 
-  # Configure Hyper-V specific settings
-  # @param config [Vagrant::Config::V2::Root] The Vagrant config object
-  # @param hyperv [Object] The Hyper-V provider configuration object
-  # @return [void]
-  def self.config_hyperv(config, hyperv)
-    config.vm.network "public_network", bridge: "Default Switch"
-    hyperv.maxmemory = SETTINGS["memory"]
-    hyperv.cpus = SETTINGS["cpus"]
-  end
+  # Provider-specific configuration methods
+  module Provider
+    # Configure Hyper-V specific settings
+    # @param config [Vagrant::Config::V2::Root] The Vagrant config object
+    # @param hyperv [Object] The Hyper-V provider configuration object
+    # @return [void]
+    def self.hyperv(config, hyperv)
+      config.vm.network "public_network", bridge: "Default Switch"
+      hyperv.maxmemory = SETTINGS["memory"]
+      hyperv.cpus = SETTINGS["cpus"]
+    end
 
-  # Configure VirtualBox specific settings
-  # @param config [Vagrant::Config::V2::Root] The Vagrant config object
-  # @param virtualbox [Object] The VirtualBox provider configuration object
-  # @return [void]
-  def self.config_virtualbox(config, virtualbox)
-    virtualbox.memory = SETTINGS["memory"]
-    virtualbox.cpus = SETTINGS["cpus"]
+    # Configure VirtualBox specific settings
+    # @param config [Vagrant::Config::V2::Root] The Vagrant config object
+    # @param virtualbox [Object] The VirtualBox provider configuration object
+    # @return [void]
+    def self.virtualbox(config, virtualbox)
+      virtualbox.memory = SETTINGS["memory"]
+      virtualbox.cpus = SETTINGS["cpus"]
+    end
   end
 end

@@ -7,17 +7,17 @@ require_relative "../__shared__/settings"
 vmname = "Debian11"
 
 Vagrant.configure("2") do |config|
-  Common.config(config)
+  CommonConfig.config(config)
 
   config.vm.box = "boxomatic/debian-11"
   config.vm.hostname = vmname.gsub(".", "").downcase
   config.vm.network "private_network", ip: SETTINGS["private_network"]["ip"]["debian"]
   config.vm.provider "virtualbox" do |virtualbox|
-    Common.config_virtualbox(config, virtualbox)
+    CommonConfig::Provider.virtualbox(config, virtualbox)
     virtualbox.name = vmname
   end
   config.vm.provider "hyperv" do |hyperv, override|
-    Common.config_hyperv(config, hyperv)
+    CommonConfig::Provider.hyperv(config, hyperv)
     override.vm.box = "generic/debian11"
     hyperv.vmname = vmname
   end
