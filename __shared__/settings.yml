@@ -6,5 +6,5 @@ private_network:
   ip:
     centos: 192.168.56.4
     debian: 192.168.56.9
-    win-server: 192.168.56.12
     win: 192.168.56.11
+    win-server: 192.168.56.12
