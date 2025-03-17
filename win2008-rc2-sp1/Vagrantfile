@@ -1,17 +1,20 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require_relative "../__shared__/config"
+require_relative "../__shared__/settings"
+
+vmname = "win-server-2008-rc2"
+
 Vagrant.configure("2") do |config|
   if ENV["VAGRANT_WSL"]
     config.ssh.insert_key = false
   end
   config.vm.box = "universalvishwa/windows-2008-r2-standard-x64"
-  config.vm.box_version = "1.0.0"
-  config.vm.network :private_network, ip: "192.168.56.11"
-  config.vm.provider "virtualbox" do |pmv|
-    pmv.name = "win-server-2008-rc2"
-    pmv.memory = 2048
-    pmv.cpus = 2
+  config.vm.network :private_network, ip: SETTINGS["private_network"]["ip"]["win-server"]
+  config.vm.hostname = vmname
+  config.vm.provider "virtualbox" do |virtualbox|
+    virtualbox.name = vmname
+    CommonConfig::Provider.virtualbox(config, virtualbox)
   end
-  config.vm.hostname = "win7"
 end
