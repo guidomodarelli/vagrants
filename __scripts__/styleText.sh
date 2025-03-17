@@ -171,3 +171,27 @@ printCommandOutput() {
     printf "  $line\n"
   done
 }
+
+log() {
+  echo "$LOG_PREFIX $1"
+}
+
+logHeader() {
+  echo "$LOG_PREFIX $(printMagenta -b -- "====== $1 ======")"
+}
+
+logInfo() {
+  echo "$LOG_PREFIX [ $(printBlue -b INFO) ] $1"
+}
+
+logWarn() {
+  echo "$LOG_PREFIX [ $(printYellow -b WARN) ] $1"
+}
+
+logSuccess() {
+  echo "$LOG_PREFIX [ $(printGreen -b SUCCESS) ] $1"
+}
+
+logError() {
+  echo "$LOG_PREFIX [ $(printRed -b ERROR) ] $1"
+}
