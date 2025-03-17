@@ -33,7 +33,7 @@ module CommonConfig
 
     # Run provisioning scripts to configure SSH and disable firewall
     config.vm.provision "shell", path: "../__scripts__/enable-ssh.sh"
-    config.vm.provision "shell", path: "../__scripts__/turn-off-firewalld.sh"
+    config.vm.provision "shell", path: "../__scripts__/disable-firewalld.sh"
   end
 
   # Provider-specific configuration methods
