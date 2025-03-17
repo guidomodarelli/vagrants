@@ -7,6 +7,12 @@ source "/home/vagrant/styleText.sh"
 
 LOG_PREFIX="[ $(printGreen -b ENABLE-SSH) ]"
 
+exit_and_log_header() {
+  local code="$1"
+  logHeader "SSH Configuration Complete"
+  exit "$code"
+}
+
 # Exit on error
 set -e
 
@@ -17,7 +23,7 @@ KEY="PasswordAuthentication"
 # Check if SSH config file exists
 if [[ ! -f "$SSH_CONFIG" ]]; then
   logError "SSH configuration file not found at $SSH_CONFIG"
-  exit 1
+  exit_and_log_header 1
 fi
 
 logHeader "SSH Configuration Setup"
@@ -34,7 +40,7 @@ if grep -q "^\s*$KEY no" "$SSH_CONFIG"; then
     logSuccess "Password authentication successfully enabled"
   else
     logError "Failed to enable password authentication"
-    exit 1
+    exit_and_log_header 1
   fi
 elif grep -q "^\s*$KEY yes" "$SSH_CONFIG"; then
   logSuccess "Password authentication is already enabled"
@@ -53,8 +59,8 @@ if systemctl restart sshd; then
   logSuccess "SSH service restarted successfully"
 else
   logError "Failed to restart SSH service"
-  exit 1
+  exit_and_log_header 1
 fi
 
 logSuccess "✅ SSH password authentication is now enabled"
-logHeader "SSH Configuration Complete"
+exit_and_log_header 0
