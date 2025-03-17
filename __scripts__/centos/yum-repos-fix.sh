@@ -9,14 +9,14 @@ LOG_PREFIX="[ $(printGreen -b YUM-REPOS-FIX) ]"
 
 exit_and_log_header() {
   local code="$1"
-  logHeader "CentOS YUM Repositories Fix Complete"
+  logHeader "CentOS YUM Repos Fix Complete"
   exit "$code"
 }
 
 # Exit on error
 set -e
 
-logHeader "CentOS YUM Repositories Fix"
+logHeader "CentOS YUM Repos Fix"
 
 # Check if this is a CentOS system
 if [ ! -f /etc/centos-release ]; then
