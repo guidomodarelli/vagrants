@@ -1,11 +1,13 @@
 #!/bin/bash
 
+source "/home/vagrant/styleText.sh"
+
 # Script to enable SSH password authentication
 # Improved version with error handling and verification
 
 # Function for logging
 log() {
-  echo "[ENABLE-SSH] $1"
+  echo "[ $(printGreen -b ENABLE-SSH) ] $1"
 }
 
 # Exit on error

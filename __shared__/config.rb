@@ -29,6 +29,8 @@ module CommonConfig
       SHELL
     end
 
+    config.vm.provision "file", source: "../__scripts__/styleText.sh", destination: "~/styleText.sh"
+
     # Run provisioning scripts to configure SSH and disable firewall
     config.vm.provision "shell", path: "../__scripts__/enable-ssh.sh"
     config.vm.provision "shell", path: "../__scripts__/turn-off-firewalld.sh"
