@@ -8,18 +8,18 @@ require_relative "../__common__/ubuntu/config"
 vmname = "Ubuntu22.04"
 
 Vagrant.configure("2") do |config|
-  common_config(config)
+  Common.config(config)
 
   config.vm.box = "bento/ubuntu-22.04"
   config.vm.hostname = vmname.gsub(".", "").downcase
   config.vm.network "private_network", ip: SETTINGS["private_network"]["ip"]["debian"]
   config.vm.provider "virtualbox" do |virtualbox|
-    config_virtualbox(config, virtualbox)
+    Common.config_virtualbox(config, virtualbox)
     virtualbox.name = vmname
     Ubuntu.config(virtualbox)
   end
   config.vm.provider "hyperv" do |hyperv, override|
-    config_hyperv(config, hyperv)
+    Common.config_hyperv(config, hyperv)
     override.vm.box = "generic/ubuntu2204"
     hyperv.vmname = vmname
   end

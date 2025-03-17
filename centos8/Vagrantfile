@@ -7,16 +7,16 @@ require_relative "../__shared__/settings"
 vmname = "Centos8"
 
 Vagrant.configure("2") do |config|
-  common_config(config)
+  Common.config(config)
 
   config.vm.box = "centos/8"
   config.vm.network "private_network", ip: SETTINGS["private_network"]["ip"]["centos"]
   config.vm.provider "virtualbox" do |virtualbox|
-    config_virtualbox(config, virtualbox)
+    Common.config_virtualbox(config, virtualbox)
     virtualbox.name = vmname
   end
   config.vm.provider "hyperv" do |hyperv, override|
-    config_hyperv(config, hyperv)
+    Common.config_hyperv(config, hyperv)
     override.vm.box = "generic/centos8"
     hyperv.vmname = vmname
   end
