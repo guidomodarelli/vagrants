@@ -17,7 +17,7 @@ module CommonConfig
     # Handle SSH public key provisioning if a key path is specified
     ssh_pub_key_path = ENV["WZ_SSH_PUB_KEY_PATH"]
     if ssh_pub_key_path
-      ssh_dest_path = "~/.ssh/me.pub"
+      ssh_dest_path = "/home/vagrant/.ssh/me.pub"
       # Copy the SSH public key to the VM
       config.vm.provision "file", source: ssh_pub_key_path, destination: ssh_dest_path
       # Add the public key to authorized_keys for both the vagrant user and root
