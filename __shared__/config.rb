@@ -5,6 +5,7 @@ require_relative "./settings.rb"
 
 # Configure common settings for all VMs
 # @param config [Vagrant::Config::V2::Root] The Vagrant config object
+# @return [void]
 def common_config(config)
   # Disable SSH key insertion when running under WSL
   # This avoids key insertion issues that can occur in Windows Subsystem for Linux
@@ -32,12 +33,20 @@ def common_config(config)
   config.vm.provision "shell", path: "../__scripts__/turn-off-firewalld.sh"
 end
 
+# Configure Hyper-V specific settings
+# @param config [Vagrant::Config::V2::Root] The Vagrant config object
+# @param hyperv [Object] The Hyper-V provider configuration object
+# @return [void]
 def config_hyperv(config, hyperv)
   config.vm.network "public_network", bridge: "Default Switch"
   hyperv.maxmemory = SETTINGS["memory"]
   hyperv.cpus = SETTINGS["cpus"]
 end
 
+# Configure VirtualBox specific settings
+# @param config [Vagrant::Config::V2::Root] The Vagrant config object
+# @param virtualbox [Object] The VirtualBox provider configuration object
+# @return [void]
 def config_virtualbox(config, virtualbox)
   virtualbox.memory = SETTINGS["memory"]
   virtualbox.cpus = SETTINGS["cpus"]
