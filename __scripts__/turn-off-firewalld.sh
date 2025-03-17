@@ -5,7 +5,7 @@
 
 source "/home/vagrant/styleText.sh"
 
-LOG_PREFIX="[  $(printGreen -b DISABLE-FIREWALLD) ]"
+LOG_PREFIX="[ $(printGreen -b DISABLE-FIREWALLD) ]"
 
 exit_and_log_header() {
   local code=$1
