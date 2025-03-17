@@ -3,6 +3,7 @@
 
 require_relative "../__shared__/config"
 require_relative "../__shared__/settings"
+require_relative "../__common__/ubuntu/config"
 
 vmname = "Ubuntu20.04"
 
@@ -15,7 +16,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |virtualbox|
     config_virtualbox(config, virtualbox)
     virtualbox.name = vmname
-    virtualbox.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
+    Ubuntu.config(virtualbox)
   end
   config.vm.provider "hyperv" do |hyperv, override|
     config_hyperv(config, hyperv)
