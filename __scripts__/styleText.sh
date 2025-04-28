@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Color name to code mapping
 # Using function-based approach for macOS compatibility
 function color_code() {

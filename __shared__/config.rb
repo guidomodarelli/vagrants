@@ -29,7 +29,7 @@ module CommonConfig
       SHELL
     end
 
-    config.vm.provision "file", source: "../__scripts__/styleText.sh", destination: "~/styleText.sh"
+    config.vm.provision "file", source: "../__scripts__/styleText.sh", destination: "/home/vagrant/styleText.sh"
 
     # Run provisioning scripts to configure SSH and disable firewall
     config.vm.provision "shell", path: "../__scripts__/enable-ssh.sh"
