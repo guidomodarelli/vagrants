@@ -44,7 +44,6 @@ module CommonConfig
     # @return [void]
     module HyperV
       def self.configure(config, hyperv)
-        config.vm.network "public_network", bridge: "Default Switch"
         hyperv.maxmemory = SETTINGS["memory"]
         hyperv.cpus = SETTINGS["cpus"]
       end
