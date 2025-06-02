@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic-x64/rhel9"
+  config.vm.network "public_network"
+  config.vm.hostname = "rhel9"
+  config.vm.provider "hyperv" do |h|
+    h.cpus = "4"
+    h.maxmemory = "4096"
+    h.vmname = "rhel9"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    subscription-manager register --username #{ENV['RHEL_USERNAME']} --password #{ENV['RHEL_PASSWORD']}
+    subscription-manager refresh
+    yum -y install vim
+    sed -i "s/^\s*PasswordAuthentication no/PasswordAuthentication yes/" "/etc/ssh/sshd_config"
+    systemctl restart sshd
+    systemctl stop firewalld
+  SHELL
+end
